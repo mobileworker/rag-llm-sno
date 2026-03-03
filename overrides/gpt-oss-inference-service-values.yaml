@@ -12,7 +12,7 @@ vllmServingRuntime:
     openshift.io/display-name: gpt-oss-inference
     argocd.argoproj.io/sync-wave: "20"
 
-  model: openai/gpt-oss-120b
+  model: openai/gpt-oss-20b
 
 acceleratorProfile:
   enabled: false
