@@ -15,6 +15,8 @@ spec:
         pci:
           deviceClassWhitelist:
             - "0200"
+            - "0300"
+            - "0302"
             - "03"
             - "12"
           deviceLabelFields:
