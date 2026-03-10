@@ -19,6 +19,10 @@ clusterGroup:
     - redhat-ods-applications
     - rhoai-model-registries
     - rhods-notebooks
+    - nvidia-network-operator:
+        operatorGroup: true
+        targetNamespaces:
+          - nvidia-network-operator
 
   subscriptions:
     nfd:
@@ -40,6 +44,10 @@ clusterGroup:
     lvms:
       name: lvms-operator
       namespace: openshift-storage
+    nvidia-network:
+      name: nvidia-network-operator
+      namespace: nvidia-network-operator
+      channel: certified-operators
 
   applications:
     nfd:
@@ -92,3 +100,8 @@ clusterGroup:
       path: helm
       extraValueFiles:
         - $patternref/overrides/rag-llm-frontend-values.yaml
+
+    nvidia-network:
+      name: nvidia-network
+      namespace: nvidia-network-operator
+      path: charts/nvidia-network
