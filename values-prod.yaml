@@ -47,7 +47,7 @@ clusterGroup:
     nvidia-network:
       name: nvidia-network-operator
       namespace: nvidia-network-operator
-      channel: certified-operators
+      source: certified-operators
 
   applications:
     nfd:
