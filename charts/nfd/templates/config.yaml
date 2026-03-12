@@ -1,3 +1,7 @@
+# PCI class whitelist includes:
+#   0200 = Ethernet, 0207 = InfiniBand
+#   0300/0302/03 = Display/3D controllers (GPUs)
+#   12 = Processing accelerators
 apiVersion: nfd.openshift.io/v1
 kind: NodeFeatureDiscovery
 metadata:
