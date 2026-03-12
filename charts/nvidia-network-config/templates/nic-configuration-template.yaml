@@ -1,10 +1,8 @@
 ---
-# NicConfigurationTemplate for ConnectX NICs with ROCEv2 QoS and GPUDirect optimization.
-# This CR is acted on by the NIC Configuration Operator (deployed via NicClusterPolicy).
-# It will only take effect on nodes that have ConnectX NICs matching the nicSelector.
-#
 # To target ConnectX-6 Dx, use nicType: "101d"
 # To target ConnectX-7, use nicType: "1021"
+# To target bluefield-2, use nicType: "a2d6"
+# To target bluefield-3, use nicType: "a2dc"
 # See: https://github.com/Mellanox/nic-configuration-operator
 apiVersion: configuration.net.nvidia.com/v1alpha1
 kind: NicConfigurationTemplate
