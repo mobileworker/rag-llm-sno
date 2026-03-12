@@ -1,0 +1,18 @@
+---
+# Disables PCIe Access Control Services (ACS) to allow GPUDirect peer-to-peer
+# DMA between GPUs and RDMA NICs that share the same PCIe root complex.
+#
+# Without this, IOMMU groups isolate devices and all DMA goes through the CPU,
+# defeating the purpose of GPUDirect RDMA and GPU peer-to-peer transfers.
+#
+# WARNING: This reduces PCIe isolation. Only apply to nodes dedicated to GPU workloads.
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 50-acs-override-master
+spec:
+  kernelArguments:
+    - pcie_acs_override=downstream,multifunction
+    - iommu.passthrough=1

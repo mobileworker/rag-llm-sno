@@ -1,0 +1,14 @@
+---
+# Same ACS override for worker role. On this compact cluster all nodes are
+# master+worker, so both MachineConfigs target the same nodes. If dedicated
+# GPU workers are added later, this ensures they also get the override.
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 50-acs-override-worker
+spec:
+  kernelArguments:
+    - pcie_acs_override=downstream,multifunction
+    - iommu.passthrough=1
