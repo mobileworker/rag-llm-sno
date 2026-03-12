@@ -4,6 +4,8 @@ kind: Tuned
 metadata:
   name: gpu-rdma-performance
   namespace: openshift-cluster-node-tuning-operator
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   profile:
     - name: gpu-rdma-performance

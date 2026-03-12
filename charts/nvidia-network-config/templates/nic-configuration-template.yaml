@@ -9,6 +9,9 @@ kind: NicConfigurationTemplate
 metadata:
   name: rocev2-gpudirect-config
   namespace: nvidia-network-operator
+  annotations:
+    argocd.argoproj.io/sync-wave: "20"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   nodeSelector:
     feature.node.kubernetes.io/pci-15b3.present: "true"

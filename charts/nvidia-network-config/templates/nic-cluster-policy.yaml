@@ -3,6 +3,8 @@ apiVersion: mellanox.com/v1alpha1
 kind: NicClusterPolicy
 metadata:
   name: nic-cluster-policy
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
 spec:
   ofedDriver:
     env:

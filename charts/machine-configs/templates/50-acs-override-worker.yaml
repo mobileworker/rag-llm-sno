@@ -8,6 +8,8 @@ metadata:
   labels:
     machineconfiguration.openshift.io/role: worker
   name: 50-acs-override-worker
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   kernelArguments:
     - pcie_acs_override=downstream,multifunction

@@ -50,6 +50,16 @@ clusterGroup:
       source: certified-operators
 
   applications:
+    machine-configs:
+      name: machine-configs
+      namespace: default
+      path: charts/machine-configs
+
+    tuned-rdma:
+      name: tuned-rdma
+      namespace: openshift-cluster-node-tuning-operator
+      path: charts/tuned-rdma
+
     nfd:
       name: nfd
       namespace: openshift-nfd
@@ -59,6 +69,11 @@ clusterGroup:
       name: nvidia-config
       namespace: nvidia-gpu-operator
       path: charts/nvidia-config
+
+    nvidia-network-config:
+      name: nvidia-network-config
+      namespace: nvidia-network-operator
+      path: charts/nvidia-network-config
 
     lvms:
       name: lvms
@@ -100,8 +115,3 @@ clusterGroup:
       path: helm
       extraValueFiles:
         - $patternref/overrides/rag-llm-frontend-values.yaml
-
-    nvidia-network:
-      name: nvidia-network
-      namespace: nvidia-network-operator
-      path: charts/nvidia-network
