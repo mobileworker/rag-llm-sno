@@ -1,0 +1,6 @@
+apiVersion: v2
+name: tuned-rdma
+description: TUNED operator config - GPU RDMA performance
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
