@@ -1,0 +1,65 @@
+---
+apiVersion: mellanox.com/v1alpha1
+kind: NicClusterPolicy
+metadata:
+  name: nic-cluster-policy
+spec:
+  ofedDriver:
+    env:
+      - name: CREATE_IFNAMES
+        value: "true"
+    forcePrecompiled: false
+    image: doca-driver
+    repository: nvcr.io/nvidia/mellanox
+    version: doca3.3.0-26.01-1.0.0.0-0
+    imagePullSecrets: []
+    livenessProbe:
+      initialDelaySeconds: 30
+      periodSeconds: 30
+    readinessProbe:
+      initialDelaySeconds: 10
+      periodSeconds: 30
+    startupProbe:
+      initialDelaySeconds: 10
+      periodSeconds: 20
+    terminationGracePeriodSeconds: 300
+    upgradePolicy:
+      autoUpgrade: true
+      drain:
+        deleteEmptyDir: true
+        enable: true
+        force: true
+        podSelector: ""
+        timeoutSeconds: 300
+      maxParallelUpgrades: 1
+      safeLoad: false
+
+  rdmaSharedDevicePlugin:
+    image: k8s-rdma-shared-dev-plugin
+    repository: nvcr.io/nvidia/mellanox
+    version: sha256:cd489dfcddeb8ef67284d177cabc347f01d6b4fba0a44335a2026f6b6e11c847
+    imagePullSecrets: []
+    config: |
+      {
+        "configList": [
+          {
+            "resourceName": "rdma_shared_device_a",
+            "rdmaHcaMax": 63,
+            "selectors": {
+              "vendors": ["15b3"]
+            }
+          }
+        ]
+      }
+
+  nicConfigurationOperator:
+    operator:
+      image: nic-configuration-operator
+      repository: nvcr.io/nvidia/mellanox
+      version: sha256:a57208fe6b617edc21e929dff95d332ae2b50e05cf8e8166de979997dc5e9bc1
+      imagePullSecrets: []
+    configurationDaemon:
+      image: nic-configuration-operator-daemon
+      repository: nvcr.io/nvidia/mellanox
+      version: sha256:968a74cb0803643ba8ecca18bb2fbec3c044c29bd7a5b3527602a863aa64d71d
+      imagePullSecrets: []

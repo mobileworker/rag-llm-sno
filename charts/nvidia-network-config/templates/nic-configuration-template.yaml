@@ -1,0 +1,34 @@
+---
+# NicConfigurationTemplate for ConnectX NICs with ROCEv2 QoS and GPUDirect optimization.
+# This CR is acted on by the NIC Configuration Operator (deployed via NicClusterPolicy).
+# It will only take effect on nodes that have ConnectX NICs matching the nicSelector.
+#
+# To target ConnectX-6 Dx, use nicType: "101d"
+# To target ConnectX-7, use nicType: "1021"
+# See: https://github.com/Mellanox/nic-configuration-operator
+apiVersion: configuration.net.nvidia.com/v1alpha1
+kind: NicConfigurationTemplate
+metadata:
+  name: rocev2-gpudirect-config
+  namespace: nvidia-network-operator
+spec:
+  nodeSelector:
+    feature.node.kubernetes.io/pci-15b3.present: "true"
+  nicSelector:
+    nicType: "101d"
+  resetToDefault: false
+  template:
+    numVfs: 0
+    linkType: Ethernet
+    pciPerformanceOptimized:
+      enabled: true
+      maxAccOutRead: 44
+      maxReadRequest: 4096
+    roceOptimized:
+      enabled: true
+      qos:
+        trust: "dscp"
+        pfc: "0,0,0,1,0,0,0,0"
+    gpuDirectOptimized:
+      enabled: true
+      env: "Baremetal"
