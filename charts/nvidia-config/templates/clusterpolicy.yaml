@@ -1,0 +1,85 @@
+---
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  name: gpu-cluster-policy
+spec:
+  operator:
+    defaultRuntime: crio
+    use_ocp_driver_toolkit: true
+
+  daemonsets:
+    updateStrategy: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "1"
+    tolerations:
+      - effect: NoSchedule
+        key: nvidia.com/gpu
+        value: "true"
+
+  driver:
+    enabled: true
+    upgradePolicy:
+      autoUpgrade: true
+      maxParallelUpgrades: 1
+      maxUnavailable: "25%"
+      podDeletion:
+        deleteEmptyDir: true
+        force: false
+        timeoutSeconds: 300
+      waitForCompletion:
+        timeoutSeconds: 0
+    rdma:
+      enabled: true
+      useHostMofed: true
+    certConfig:
+      name: ""
+
+  devicePlugin:
+    enabled: true
+    config:
+      name: ""
+
+  dcgm:
+    enabled: true
+
+  dcgmExporter:
+    enabled: true
+    config:
+      name: ""
+    serviceMonitor:
+      enabled: true
+
+  gfd:
+    enabled: true
+
+  migManager:
+    enabled: false
+
+  nodeStatusExporter:
+    enabled: true
+
+  toolkit:
+    enabled: true
+    installDir: /usr/local/nvidia
+
+  validator:
+    plugin:
+      env:
+        - name: WITH_WORKLOAD
+          value: "true"
+
+  vgpuDeviceManager:
+    enabled: false
+
+  vgpuManager:
+    enabled: false
+
+  sandboxDevicePlugin:
+    enabled: false
+
+  gds:
+    enabled: false
+
+  gdrcopy:
+    enabled: true
